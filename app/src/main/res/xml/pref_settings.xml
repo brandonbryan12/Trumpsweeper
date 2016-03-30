@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="tutorial_preference"
+        android:title="Tutorial"
+        android:summary="Display a tutorial before playing"
+        android:defaultValue="true" />
+
+    <CheckBoxPreference
+        android:key="vibrate_preference"
+        android:title="Vibrate"
+        android:summary="Vibrate on loss"
+        android:defaultValue="true" />
+
+    <CheckBoxPreference
+        android:key="china_preference"
+        android:title="China Mode"
+        android:summary="Chai-na"
+        android:defaultValue="false" />
+
+    <ListPreference
+        android:defaultValue="default"
+        android:dialogTitle="Select a Theme"
+        android:entries="@array/themes_list_preference"
+        android:entryValues="@array/themesvalues_list_preference"
+        android:key="theme_preference"
+        android:title="Theme"
+        android:summary="Switch themes"
+        />
+
+</PreferenceScreen>

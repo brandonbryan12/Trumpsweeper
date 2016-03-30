@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="GridId" type="id" />
+    <item type="id" name="action_next" />
+    <item type="id" name="action_flip" />
+
+</resources>
