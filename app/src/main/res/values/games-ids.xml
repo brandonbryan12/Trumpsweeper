@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_id">1001072381100</string>
+    <string name="package_name">com.brandonferrell.trumpsweeper</string>
+    <string name="achievement_ocd_hairdresser">CgkIrJnBpJEdEAIQHg</string>
+    <string name="achievement_chump_change">CgkIrJnBpJEdEAIQCA</string>
+    <string name="achievement_chump_change_v.2">CgkIrJnBpJEdEAIQCQ</string>
+    <string name="achievement_chump_change_v.3">CgkIrJnBpJEdEAIQCg</string>
+    <string name="achievement_whos_this_guy">CgkIrJnBpJEdEAIQCw</string>
+    <string name="achievement_whos_this_guy_v.2">CgkIrJnBpJEdEAIQDA</string>
+    <string name="achievement_whos_this_guy_v.3">CgkIrJnBpJEdEAIQDQ</string>
+    <string name="achievement_thats_very_unimpressive">CgkIrJnBpJEdEAIQEA</string>
+    <string name="achievement_climbing_the_polls">CgkIrJnBpJEdEAIQEQ</string>
+    <string name="achievement_end_all_trump_all">CgkIrJnBpJEdEAIQEg</string>
+    <string name="achievement_trumped_the_trump">CgkIrJnBpJEdEAIQFA</string>
+    <string name="achievement_trumped_the_trump_v.2">CgkIrJnBpJEdEAIQFQ</string>
+    <string name="achievement_trumped_the_trump_v.3">CgkIrJnBpJEdEAIQFg</string>
+    <string name="leaderboard_trumps_toupeed">CgkIrJnBpJEdEAIQGw</string>
+    <string name="leaderboard_apprentice_wins">CgkIrJnBpJEdEAIQDg</string>
+    <string name="leaderboard_ceo_wins">CgkIrJnBpJEdEAIQDw</string>
+    <string name="leaderboard_mr._president_wins">CgkIrJnBpJEdEAIQFw</string>
+    <string name="leaderboard_fastest_apprentice">CgkIrJnBpJEdEAIQGA</string>
+    <string name="leaderboard_fastest_ceo">CgkIrJnBpJEdEAIQGQ</string>
+    <string name="leaderboard_fastest_president">CgkIrJnBpJEdEAIQGg</string>
+    <string name="event_apprentice_game_won">CgkIrJnBpJEdEAIQAA</string>
+    <string name="event_ceo_game_won">CgkIrJnBpJEdEAIQAQ</string>
+    <string name="event_apprentice_game_lost">CgkIrJnBpJEdEAIQAg</string>
+    <string name="event_ceo_game_lost">CgkIrJnBpJEdEAIQAw</string>
+    <string name="event_mr._president_game_won">CgkIrJnBpJEdEAIQBA</string>
+    <string name="event_mr._president_game_lost">CgkIrJnBpJEdEAIQBQ</string>
+    <string name="event_trump_toupeed">CgkIrJnBpJEdEAIQBg</string>
+</resources>

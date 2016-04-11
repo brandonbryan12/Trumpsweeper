@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="@dimen/profile_popup_width"
+    android:minHeight="@dimen/profile_popup_height"
+    android:weightSum="4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_image"
+            android:adjustViewBounds="true"
+            android:layout_weight=".75" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/profile_name"
+            android:text="John Doe"
+            android:gravity="center"
+            android:layout_weight=".25"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/darker_gray"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:id="@+id/rate_btn"
+            android:text="Rate Trumpsweeper"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:id="@+id/achievements_btn"
+            android:text="Achievements"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:id="@+id/logged_in_sign_out"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:text="Sign Out"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="20dp"
+            android:textAllCaps="false"/>
+
+</LinearLayout>

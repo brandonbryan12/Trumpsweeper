@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/volume_control_up"
+        android:icon="@drawable/ic_volume_up"
+        android:title="Volume Up"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/volume_control_mute"
+        android:icon="@drawable/ic_volume_mute"
+        android:title="Volume Mute"
+        app:showAsAction="ifRoom"/>
+
+</menu>

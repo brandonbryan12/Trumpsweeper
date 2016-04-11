@@ -1,32 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sample="http://schemas.android.com/apk/res-auto">
 
-    <CheckBoxPreference
-        android:key="tutorial_preference"
-        android:title="Tutorial"
-        android:summary="Display a tutorial before playing"
-        android:defaultValue="true" />
+    <PreferenceCategory android:title="Contextual">
+        <CheckBoxPreference
+            android:key="vibrate_preference"
+            android:title="Vibrate"
+            android:summary="Vibrate on loss"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="volume_preference"
+            android:title="Trump Clip Audio"
+            android:summary="Play Trump clips on game end"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="music_preference"
+            android:title="Background Music"
+            android:summary="Play background music"
+            android:defaultValue="true" />
+        <ListPreference
+            android:defaultValue="default"
+            android:dialogTitle="Select a Theme"
+            android:entries="@array/themes_list_preference"
+            android:entryValues="@array/themesvalues_list_preference"
+            android:key="theme_preference"
+            android:title="Theme"
+            android:summary="Switch themes"
+            />
+        <CheckBoxPreference
+            android:key="particle_preference"
+            android:title="Particle Effects"
+            android:summary="Disabling will improve performance"
+            android:defaultValue="true" />
+    </PreferenceCategory>
 
-    <CheckBoxPreference
-        android:key="vibrate_preference"
-        android:title="Vibrate"
-        android:summary="Vibrate on loss"
-        android:defaultValue="true" />
+    <PreferenceCategory android:title="China Mode">
+        <CheckBoxPreference
+            android:key="china_preference"
+            android:title="On/Off"
+            android:summary="Chai-na"
+            android:defaultValue="false" />
 
-    <CheckBoxPreference
-        android:key="china_preference"
-        android:title="China Mode"
-        android:summary="Chai-na"
-        android:defaultValue="false" />
+        <com.pavelsikun.seekbarpreference.SeekBarPreference
+            android:key="china_slider_preference"
+            android:title="Chance"
+            android:summary="Chance Trump will trump China"
+            android:enabled="true"
+            android:defaultValue="5"
+            sample:msbp_minValue="1"
+            sample:msbp_maxValue="100"
+            sample:msbp_interval="1"
+            sample:msbp_measurementUnit="%"/>
+    </PreferenceCategory>
 
-    <ListPreference
-        android:defaultValue="default"
-        android:dialogTitle="Select a Theme"
-        android:entries="@array/themes_list_preference"
-        android:entryValues="@array/themesvalues_list_preference"
-        android:key="theme_preference"
-        android:title="Theme"
-        android:summary="Switch themes"
-        />
+    <PreferenceCategory android:title="Help">
+        <CheckBoxPreference
+            android:key="tutorial_preference"
+            android:title="Tutorial"
+            android:summary="Display a tutorial before playing"
+            android:defaultValue="true" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

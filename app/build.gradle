@@ -5,8 +5,8 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.brandon.rubecube"
-        minSdkVersion 16
+        applicationId "com.brandonferrell.trumpsweeper"
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -22,9 +22,14 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    //compile project(':libraryFragmentTransactionExtended')
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:support-v4:23.2.0'
     compile 'com.desarrollodroide:fragmenttransactionextended:1'
     compile 'com.github.amlcurran.showcaseview:library:5.4.1'
+    compile 'com.pavelsikun:material-seekbar-preference:0.12.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services-identity:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'com.plattysoft.leonids:LeonidsLib:1.3.1'
 }
