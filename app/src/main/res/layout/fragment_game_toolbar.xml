@@ -1,9 +1,106 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brandonferrell.trumpsweeper.Fragments.GameEndFragment">
-
+    tools:context="com.brandonferrell.trumpsweeper.fragments.GameEndFragment">
+    
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:scaleType="centerInside"
+                android:src="@drawable/mine_toupee"
+                android:layout_gravity="center_horizontal|bottom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:id="@+id/game_trumps_swept"
+                android:layout_gravity="center_horizontal|top"
+                android:gravity="center"
+                android:text="test"
+                android:layout_weight="2"
+                android:textSize="50dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="134dp"
+                android:layout_weight="1.17"
+                android:id="@+id/toupee_button"
+                android:src="@drawable/toupee_button_off"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_horizontal|center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clock_toupee"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_weight="8"/>
+
+                <Chronometer
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:id="@+id/timeCount"
+                    android:layout_gravity="top|center_horizontal"
+                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:textSize="50dp" />
+
+            <!--<ImageButton
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/btn_flag"
+                android:background="@drawable/btn_flag"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/btn_shovel"
+                android:background="@drawable/btn_shovel"
+                android:visibility="gone"/>-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -36,16 +133,7 @@
             android:background="@color/primary_material_light"
             android:layout_weight="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="3"
-                android:id="@+id/game_trumps_swept"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="50dp"
-                />
+
 
 
             <ImageButton
@@ -58,17 +146,9 @@
                 android:clickable="true"
                 android:backgroundTintMode="add" />
 
-            <Chronometer
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="3"
-                android:id="@+id/timeCount"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="50dp" />
+
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </FrameLayout>

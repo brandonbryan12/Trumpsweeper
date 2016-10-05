@@ -57,10 +57,15 @@
     </string-array>
 
     <string-array name="headers">
-        <item>You\'re Fired</item>
-        <item>You\'re terrible. Just terrible</item>
-        <item>Well, these tiny hands just beat you</item>
-        <item>America\'s great without you</item>
+        <item>\"You\'re Fired\"</item>
+        <item>\"You\'re terrible. Just terrible\"</item>
+        <item>\"My Twitter has become so powerful that I can actually make my enemies tell the truth\"</item>
+        <item>\"You\'re disgusting\"</item>
+        <item>\"Sorry, there is no star on the stage tonight!\"</item>
+        <item>\"My IQ is one of the highest — and you all know it! Please don\'t feel so stupid or insecure; it\'s not your fault\"</item>
+        <item>\"My whole life is about winning. I don\'t lose often. I almost never lose\"</item>
+        <item>\"Do you mind if I sit back a little? Because your breath is very bad\"</item>
+        <item>\"I don\'t like losers\"</item>
     </string-array>
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
@@ -86,4 +91,8 @@
     <string name="leaderboards">Leaderboards</string>
     <string name="china_chance">$1%</string>
     <string name="no_player_game_end">In order to garner achievements, and access leaderboards, you must</string>
+
+    <string name="billing_license">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiYrRhstqb/3n5CLGrrRMvHqIEKHP779/PvhTJY22ri8AKKkbhWrh0Um5Pph+VMVZBrKJvVUpUv/7+Jhiej00XG5ThGyPWesLKH6nvUInjttEM0FZC/eX6KcEdi/BDNGGdLDFtWQAJcfDULH/vByaC/bv9R+N032zkA8EOOvfKa1R+8Nf3JZ0NgAAM/t+bw0AIDC8qjGiSfaG8C4TXsKu2ixdwSgL7wevyc1EGMSe0G65fynCYevoJCGHNwIE7vgE48uaJpk7TPBB09p2eZwj7/nIElNBFdUc3/aUMvj22okZRhlzbwZt6dSllZuGsAj9QoSvb0/ebgWDdXCFVz7NcwIDAQAB</string>
+    <string name="billing_ads">no_ads</string>
+    <string name="billing_china">china_variable</string>
 </resources>

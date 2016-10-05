@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "1001072381100",
+    "project_id": "trumpsweeper-99035535"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001072381100:android:c0bc09fd36919d84",
+        "android_client_info": {
+          "package_name": "com.brandonferrell.trumpsweeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001072381100-6jhju98c9v9t7t6qdhpmd33l2243mc1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brandonferrell.trumpsweeper",
+            "certificate_hash": "7DC2D4A8F3677716A97F442F02EA25A009258F58"
+          }
+        },
+        {
+          "client_id": "1001072381100-ek14rrrcu4bhdamcb59k6ll169osp26e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brandonferrell.trumpsweeper",
+            "certificate_hash": "C5DDFB6BADBA6112268263892343D8001C6FB985"
+          }
+        },
+        {
+          "client_id": "1001072381100-39f27nlktijuauv6lcbn3fi7m24n0506.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSbPMWRak3ACl_xCDehAlUpWX8vkpiLsY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

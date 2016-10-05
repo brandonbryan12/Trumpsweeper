@@ -15,12 +15,12 @@
     <string name="achievement_trumped_the_trump">CgkIrJnBpJEdEAIQFA</string>
     <string name="achievement_trumped_the_trump_v.2">CgkIrJnBpJEdEAIQFQ</string>
     <string name="achievement_trumped_the_trump_v.3">CgkIrJnBpJEdEAIQFg</string>
-    <string name="leaderboard_trumps_toupeed">CgkIrJnBpJEdEAIQGw</string>
-    <string name="leaderboard_apprentice_wins">CgkIrJnBpJEdEAIQDg</string>
-    <string name="leaderboard_ceo_wins">CgkIrJnBpJEdEAIQDw</string>
+    <string name="leaderboard_trumps_toupeed">CgkIrJnBpJEdEAIQIg</string>
+    <string name="leaderboard_apprentice_wins">CgkIrJnBpJEdEAIQIw</string>
+    <string name="leaderboard_fastest_apprentice">CgkIrJnBpJEdEAIQJA</string>
+    <string name="leaderboard_ceo_wins">CgkIrJnBpJEdEAIQJQ</string>
+    <string name="leaderboard_fastest_ceo">CgkIrJnBpJEdEAIQJg</string>
     <string name="leaderboard_mr._president_wins">CgkIrJnBpJEdEAIQFw</string>
-    <string name="leaderboard_fastest_apprentice">CgkIrJnBpJEdEAIQGA</string>
-    <string name="leaderboard_fastest_ceo">CgkIrJnBpJEdEAIQGQ</string>
     <string name="leaderboard_fastest_president">CgkIrJnBpJEdEAIQGg</string>
     <string name="event_apprentice_game_won">CgkIrJnBpJEdEAIQAA</string>
     <string name="event_ceo_game_won">CgkIrJnBpJEdEAIQAQ</string>

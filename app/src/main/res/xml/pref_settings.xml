@@ -11,12 +11,17 @@
         <CheckBoxPreference
             android:key="volume_preference"
             android:title="Trump Clip Audio"
-            android:summary="Play Trump clips on game end"
+            android:summary="Play Trump clips and sound effects"
             android:defaultValue="true" />
         <CheckBoxPreference
             android:key="music_preference"
-            android:title="Background Music"
-            android:summary="Play background music"
+            android:title="Theme Music"
+            android:summary="Play theme song"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="particle_preference"
+            android:title="Particle Effects"
+            android:summary="Disabling will improve performance"
             android:defaultValue="true" />
         <ListPreference
             android:defaultValue="default"
@@ -27,11 +32,6 @@
             android:title="Theme"
             android:summary="Switch themes"
             />
-        <CheckBoxPreference
-            android:key="particle_preference"
-            android:title="Particle Effects"
-            android:summary="Disabling will improve performance"
-            android:defaultValue="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="China Mode">
@@ -53,12 +53,37 @@
             sample:msbp_measurementUnit="%"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Help">
+    <PreferenceCategory android:title="More">
         <CheckBoxPreference
             android:key="tutorial_preference"
             android:title="Tutorial"
             android:summary="Display a tutorial before playing"
             android:defaultValue="true" />
+
+        <Preference
+            android:key="credits"
+            android:title="Credits"
+            >
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.brandonferrell.trumpsweeper"
+                android:targetClass="com.brandonferrell.trumpsweeper.Activities.CreditsActivity"
+                />
+
+        </Preference>
     </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:key="no_ads"
+        android:title="No Ads"
+        android:defaultValue="false"
+        />
+
+    <CheckBoxPreference
+        android:key="china_variable"
+        android:title="Variable China"
+        android:defaultValue="false"
+        />
 
 </PreferenceScreen>

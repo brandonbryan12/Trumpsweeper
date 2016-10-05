@@ -1,4 +1,4 @@
-package com.brandonferrell.trumpsweeper.Fragments;
+package com.brandonferrell.trumpsweeper.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.brandonferrell.trumpsweeper.activities.GameActivity;
 import com.brandonferrell.trumpsweeper.R;
 
 /**
@@ -67,27 +68,34 @@ public class GameEndFragment extends Fragment {
         playAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toolbar Fragment
-                Fragment toolbarFragment = new GameToolbarFragment();
-                FragmentChangeListener fc = (FragmentChangeListener)getActivity();
-                fc.replaceToolbarFragment(toolbarFragment);
+                playAgain();
 
-                // New Grid
-                // Get the size of the old grid and make the new one the same size
-                Fragment gameFragment = new SweeperImageButtonGridFragment();
-                Fragment oldFragment = getFragmentManager().findFragmentByTag("GRID");
-                // Set all the buttons in grid to be usable and reset
-                if(oldFragment instanceof SweeperImageButtonGridFragment) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("SIZE", ((SweeperImageButtonGridFragment) oldFragment).getSize());
-                    gameFragment.setArguments(bundle);
-                }
-
-                fc.replaceGameFragment(gameFragment);
+                // Show Interstitial ad
+                ((GameActivity) getActivity()).handleIntersitial();
             }
         });
 
         return v;
+    }
+
+    public void playAgain() {
+        // Toolbar Fragment
+        Fragment toolbarFragment = new GameToolbarFragment();
+        FragmentChangeListener fc = (FragmentChangeListener)getActivity();
+        fc.replaceToolbarFragment(toolbarFragment);
+
+        // New Grid
+        // Get the size of the old grid and make the new one the same size
+        Fragment gameFragment = new SweeperImageButtonGridFragment();
+        Fragment oldFragment = getFragmentManager().findFragmentByTag("GRID");
+        // Set all the buttons in grid to be usable and reset
+        if(oldFragment instanceof SweeperImageButtonGridFragment) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("SIZE", ((SweeperImageButtonGridFragment) oldFragment).getSize());
+            gameFragment.setArguments(bundle);
+        }
+
+        fc.replaceGameFragment(gameFragment);
     }
 
     public interface FragmentChangeListener {

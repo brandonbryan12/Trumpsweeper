@@ -1,18 +1,18 @@
-package com.brandonferrell.trumpsweeper.Fragments;
+package com.brandonferrell.trumpsweeper.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout;
 import com.brandonferrell.trumpsweeper.R;
-import com.brandonferrell.trumpsweeper.SweeperImageButton;
+import com.brandonferrell.trumpsweeper.models.SweeperImageButton;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -26,7 +26,7 @@ public class SweeperImageButtonGridFragment extends Fragment implements Cloneabl
     private int size;
     private int flags;
     public LinearLayout rows[];
-    public SlidingRelativeLayout gridLayout;
+    public RelativeLayout gridLayout;
     boolean active;
     boolean moveMade;
 
@@ -116,7 +116,7 @@ public class SweeperImageButtonGridFragment extends Fragment implements Cloneabl
         if(getFragmentManager().findFragmentById(R.id.fragment_game_end_containter) != null)
             getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.fragment_game_end_containter)).commit();
 
-        SlidingRelativeLayout srl = new SlidingRelativeLayout(getActivity());
+        RelativeLayout srl = new RelativeLayout(getActivity());
         final LinearLayout ll = new LinearLayout(getActivity());
         gridLayout = srl;
         srl.addView(ll);
@@ -187,6 +187,11 @@ public class SweeperImageButtonGridFragment extends Fragment implements Cloneabl
         this.setBtnMineNeighbors();
 
         setMoveMade(false);
+
+        // Reset Highs list
+        GameEndOverlay.newHighs = new ArrayList<>();
+        GameEndOverlay.highsErrorCount++;
+        GameEndOverlay.leaderboardsCompleted = 0;
     }
 
     public void setBtnMineNeighbors() {
@@ -234,7 +239,7 @@ public class SweeperImageButtonGridFragment extends Fragment implements Cloneabl
     }
 
     public int getMineCount(int n) {
-        return (int) (4.7 * Math.pow(1.2, n) - 8);
+        return (int) (4.7 * Math.pow(1.19, n) - 8);
     }
 
     public Object clone() throws CloneNotSupportedException {

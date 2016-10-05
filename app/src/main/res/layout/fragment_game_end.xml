@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brandonferrell.trumpsweeper.Fragments.GameStartFragment">
+    tools:context="com.brandonferrell.trumpsweeper.fragments.GameStartFragment">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -21,23 +21,36 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/trumps_swept"
-                    android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:layout_weight="1">
 
-                <TextView
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/mine_toupee"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily=""
-                    android:id="@+id/game_end_trumps_swept"
-                    android:text="4"
-                    android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily=""
+                        android:id="@+id/game_end_trumps_swept"
+                        android:textSize="20sp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
                 </LinearLayout>
 
 
@@ -49,22 +62,34 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:text="@string/time"
-                    android:gravity="center"/>
+                    android:layout_weight="1">
 
-                <TextView
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/clock_toupee"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily=""
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:id="@+id/timeResult"/>
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:id="@+id/timeResult"/>
+
+                </LinearLayout>
             </LinearLayout>
 
 

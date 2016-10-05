@@ -1,16 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.brandonferrell.trumpsweeper.Activities.GameActivity">
+    android:background="#FFFFFF"
+    tools:context="com.brandonferrell.trumpsweeper.activities.GameActivity">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".8">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/game_back"
+                        android:layout_alignParentLeft="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_action_arrow_left"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/head_mute_on"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/head_volume_silenced"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/head_mute_off"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/head_volume"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/volume_control_mute_off"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentLeft="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_action_volume_up"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/volume_control_mute_on"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentLeft="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_action_volume_mute"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/restart"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_action_reload"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -19,21 +107,21 @@
             android:weightSum="2"
             android:gravity="center">
 
-            <com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/fragment_game_containter">
 
-            </com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout>
+            </RelativeLayout>
 
-            <com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/fragment_game_end_containter">
 
-            </com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -63,18 +151,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingRight="25dp"
-                            android:src="@drawable/arrow"/>
+                            android:src="@drawable/arrow_difficulty"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingRight="25dp"
-                            android:src="@drawable/arrow"/>
+                            android:src="@drawable/arrow_difficulty"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/arrow"/>
+                            android:src="@drawable/arrow_difficulty"/>
 
                     </LinearLayout>
 
@@ -98,5 +186,13 @@
             android:id="@+id/fragment_bottom_containter">
 
         </FrameLayout>
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-9675501241522314/8135705780">
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 </RelativeLayout>

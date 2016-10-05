@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
     <ImageView
@@ -11,8 +12,9 @@
         android:src="@drawable/start_background" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
         android:src="@drawable/google_image"
         android:id="@+id/home_profile_button"
         android:paddingLeft="20dp"
@@ -52,11 +54,12 @@
             <ImageButton
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="@string/play"
+                android:src="@drawable/coins_btn"
+                android:id="@+id/home_coins_button"
                 android:scaleType="centerInside"
                 android:layout_gravity="bottom"
                 android:gravity="center_vertical|left"
-                android:paddingLeft="10dp"
+                android:padding="20dp"
                 android:layout_weight=".333333"
                 android:background="@android:color/transparent"/>
 
@@ -79,7 +82,7 @@
                 android:text="@string/leaderboards"
                 android:id="@+id/home_leaderboards_button"
                 android:scaleType="centerInside"
-                android:src="@drawable/leaderboard"
+                android:src="@drawable/leaderboard_btn"
                 android:padding="20dp"
                 android:layout_gravity="bottom"
                 android:gravity="center_vertical|start"

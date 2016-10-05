@@ -1,9 +1,5 @@
-package com.brandonferrell.trumpsweeper.Fragments;
+package com.brandonferrell.trumpsweeper.fragments;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.graphics.Interpolator;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;

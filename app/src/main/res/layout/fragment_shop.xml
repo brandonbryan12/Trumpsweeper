@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="350dp"
+    android:minHeight="250dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="25dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:background="@drawable/shop_bkg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shop_coins"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bank_of_trump"
+            android:layout_gravity="center"
+            android:layout_weight=".3"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/shop_coins"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="4">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".5">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/shop_arrow_left"
+                android:id="@+id/shop_prev"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                />
+
+        </RelativeLayout>
+
+        <com.brandonferrell.trumpsweeper.util.NonSwipeableViewPager
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight=".15"
+            android:id="@+id/shopPager">
+        </com.brandonferrell.trumpsweeper.util.NonSwipeableViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".5">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:layout_centerInParent="true"
+                android:id="@+id/shop_next"
+                android:src="@drawable/shop_arrow_right"
+                android:background="@android:color/transparent"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shop_buy"
+            android:textAllCaps="true"
+            android:layout_centerInParent="true"
+            android:text="BUY"
+            android:layout_gravity="center"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.brandonferrell.trumpsweeper.Activities;
+package com.brandonferrell.trumpsweeper.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,57 +15,77 @@ import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
-import com.brandonferrell.trumpsweeper.Fragments.GameEndFragment;
-import com.brandonferrell.trumpsweeper.Fragments.GameEndOverlay;
-import com.brandonferrell.trumpsweeper.Fragments.GameStartFragment;
-import com.brandonferrell.trumpsweeper.Fragments.GameToolbarFragment;
-import com.brandonferrell.trumpsweeper.Helper;
+import com.brandonferrell.trumpsweeper.fragments.GameEndFragment;
+import com.brandonferrell.trumpsweeper.fragments.GameEndOverlay;
+import com.brandonferrell.trumpsweeper.fragments.GameStartFragment;
+import com.brandonferrell.trumpsweeper.fragments.GameToolbarFragment;
+import com.brandonferrell.trumpsweeper.util.Helper;
 import com.brandonferrell.trumpsweeper.R;
-import com.brandonferrell.trumpsweeper.Fragments.SweeperImageButtonGridFragment;
-import com.brandonferrell.trumpsweeper.SweeperImageButton;
-import com.brandonferrell.trumpsweeper.newHigh;
+import com.brandonferrell.trumpsweeper.fragments.SweeperImageButtonGridFragment;
+import com.brandonferrell.trumpsweeper.models.SweeperImageButton;
+import com.brandonferrell.trumpsweeper.fragments.TutorialDialogFragment;
+import com.brandonferrell.trumpsweeper.models.newHigh;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.Player;
 import com.google.android.gms.games.leaderboard.LeaderboardScore;
 import com.google.android.gms.games.leaderboard.LeaderboardVariant;
 import com.google.android.gms.games.leaderboard.Leaderboards;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements GameStartFragment.FragmentChangeListener, GameToolbarFragment.FragmentChangeListener, SweeperImageButton.OnGameMovePlayedListener, GameEndFragment.FragmentChangeListener, GameEndOverlay.OnClipPlayedListener, GameEndOverlay.ProfileInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        GameEndOverlay.AchieveInterface {
+        GameEndOverlay.AchieveInterface, GameToolbarFragment.TutorialInterface {
 
     private static final String PLAYER = "PLAYER";
 
     private Player mPlayer;
 
+    View.OnClickListener showcaseOnClick;
+    int counter = 0;
+    ShowcaseView showcaseView;
+
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     public SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    MenuItem volumeUp, volumeMute;
+    //MenuItem volumeUp, volumeMute;
     MediaPlayer trumpMediaPlayer, flagMediaPlayer, tileMediaPlayer, chinaMediaPlayer, neighborsMediaPlayer;
     int lastClipId;
+    ImageButton gameBack, headMuteOn, headMuteOff, volumeMuteOn, volumeMuteOff, restart;
 
     SweeperImageButtonGridFragment mGameFragment;
+    Fragment gameEndFragment, gameEndOverlayFrag;
     Helper mHelper;
+
+    public static boolean gameComplete;
+
+    private InterstitialAd mInterstitialAd;
+    private AdRequest adRequestI;
 
     // Client used to interact with Google APIs.
     private GoogleApiClient mGoogleApiClient;
@@ -88,6 +108,189 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        showcaseOnClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(counter) {
+                    case 0:
+                        showcaseView.setShowcase(new ViewTarget(GameToolbarFragment.tv_timecount), true);
+                        showcaseView.setContentTitle("Timer");
+                        showcaseView.setContentText("This counter shows how long you've been Trumpsweeping this match.");
+
+                        break;
+                    case 1:
+                        showcaseView.setShowcase(new ViewTarget(GameToolbarFragment.btnToupee), true);
+                        showcaseView.setContentTitle("Toupee On/Off");
+                        showcaseView.setContentText("This button turns on/off the toupee functionality. If you've played Minesweeper, this is the same as the flag button.");
+
+                        break;
+                    case 2:
+                        showcaseView.setShowcase(new ViewTarget(restart), true);
+                        showcaseView.setContentTitle("Restart");
+                        showcaseView.setContentText("Press this to reset the board and start a new game.");
+
+                        break;
+                    case 3:
+                        if(volumeMuteOff.getVisibility() == View.VISIBLE)
+                            showcaseView.setShowcase(new ViewTarget(volumeMuteOff), true);
+                        else
+                            showcaseView.setShowcase(new ViewTarget(volumeMuteOn), true);
+
+                        showcaseView.setContentTitle("Music Volume");
+                        showcaseView.setContentText("Press this to mute/unmute the theme music.");
+
+                        break;
+                    case 4:
+                        if(headMuteOff.getVisibility() == View.VISIBLE)
+                            showcaseView.setShowcase(new ViewTarget(headMuteOff), true);
+                        else
+                            showcaseView.setShowcase(new ViewTarget(headMuteOn), true);
+
+                        showcaseView.setContentTitle("Sound Effects Volume");
+                        showcaseView.setContentText("This button mutes/unmutes any sound effects and Trump sayings.");
+
+                        break;
+                    case 5:
+                        showcaseView.setShowcase(new ViewTarget(gameBack), true);
+                        showcaseView.setContentTitle("Back Button");
+                        showcaseView.setContentText("Press this to return to the difficulty screen.");
+
+                        break;
+                    case 6:
+                        showcaseView.setContentTitle("That's It!");
+                        showcaseView.setContentText("That's the end of the interface tutorial. If you want to view it again, visit the settings screen and turn on the tutorial. Happy Trumpsweeping!");
+                        break;
+                    case 7:
+                        showcaseView.hide();
+                        GameToolbarFragment.cr.setBase(SystemClock.elapsedRealtime());
+                        break;
+                }
+                counter++;
+            }
+        };
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = prefs.edit();
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-9675501241522314/8135705780");
+
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        if(!prefs.getBoolean("no_ads", false)) {
+            adRequestI = new AdRequest.Builder()
+                    .addTestDevice("143FB70CBED9E7CBD2926859F4D7293B")
+                    .build();
+
+            mInterstitialAd.loadAd(adRequestI);
+
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice("143FB70CBED9E7CBD2926859F4D7293B")
+                    .build();
+            mAdView.loadAd(adRequest);
+        }
+        else
+            mAdView.setVisibility(View.GONE);
+
+        gameBack = (ImageButton) findViewById(R.id.game_back);
+        headMuteOn = (ImageButton) findViewById(R.id.head_mute_on);
+        headMuteOff = (ImageButton) findViewById(R.id.head_mute_off);
+        volumeMuteOn = (ImageButton) findViewById(R.id.volume_control_mute_on);
+        volumeMuteOff = (ImageButton) findViewById(R.id.volume_control_mute_off);
+        restart = (ImageButton) findViewById(R.id.restart);
+
+        if(prefs.getBoolean("volume_preference", true)) {
+            headMuteOn.setVisibility(View.GONE);
+            headMuteOff.setVisibility(View.VISIBLE);
+        }
+        else {
+            headMuteOn.setVisibility(View.VISIBLE);
+            headMuteOff.setVisibility(View.GONE);
+        }
+
+        if(prefs.getBoolean("music_preference", true)) {
+            volumeMuteOn.setVisibility(View.GONE);
+            volumeMuteOff.setVisibility(View.VISIBLE);
+        }
+        else {
+            volumeMuteOn.setVisibility(View.VISIBLE);
+            volumeMuteOff.setVisibility(View.GONE);
+        }
+
+        gameBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrate();
+                onBackPressed();
+            }
+        });
+
+        headMuteOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrate();
+                headMuteOn.setVisibility(View.GONE);
+                headMuteOff.setVisibility(View.VISIBLE);
+                editor.putBoolean("volume_preference", true);
+                editor.commit();
+            }
+        });
+
+        headMuteOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrate();
+                headMuteOn.setVisibility(View.VISIBLE);
+                headMuteOff.setVisibility(View.GONE);
+                editor.putBoolean("volume_preference", false);
+                editor.commit();
+            }
+        });
+
+        volumeMuteOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrate();
+                volumeMuteOn.setVisibility(View.GONE);
+                volumeMuteOff.setVisibility(View.VISIBLE);
+                editor.putBoolean("music_preference", true);
+                editor.commit();
+
+                StartActivity.themeMediaPlayer.start();
+            }
+        });
+
+        volumeMuteOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrate();
+                volumeMuteOn.setVisibility(View.VISIBLE);
+                volumeMuteOff.setVisibility(View.GONE);
+                editor.putBoolean("music_preference", false);
+                editor.commit();
+                StartActivity.themeMediaPlayer.pause();
+            }
+        });
+
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrate();
+                Fragment toolBarFrag = getFragmentManager().findFragmentById(R.id.fragment_bottom_containter);
+
+                if(toolBarFrag instanceof GameToolbarFragment)
+                    ((GameToolbarFragment) toolBarFrag).restart();
+                else if(toolBarFrag instanceof GameEndFragment)
+                    ((GameEndFragment) toolBarFrag).playAgain();
+
+                // Show Interstitial ad
+                handleIntersitial();
+            }
+        });
+
+        if(getSupportActionBar() != null)
+            getSupportActionBar().hide();
+
         Bundle b = getIntent().getExtras();
         if(b != null)
             mPlayer  = b.getParcelable(PLAYER);
@@ -95,9 +298,6 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
         setUpMediaPlayers();
 
         lastClipId = 0;
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = prefs.edit();
 
         mHelper = new Helper(this);
 
@@ -202,20 +402,27 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
 
     @Override
     public void endGame(String reason) {
+        if(gameComplete == true)
+            return;
+
+        gameComplete = true;
+
         Bundle trumpBundle = new Bundle();
         Bundle gameEndBundle = new Bundle();
 
         fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment gameEndFragment = new GameEndFragment();
+        gameEndFragment = new GameEndFragment();
 
         int sweptCount = 0;
         SweeperImageButton cells[][] = mGameFragment.cells;
 
         for(int i = 0; i < mGameFragment.getSize(); i++) {
             for(int j = 0; j < mGameFragment.getSize(); j++) {
-                if(cells[i][j].isMine && cells[i][j].getIsFlagged())
+                if(cells[i][j].isMine && cells[i][j].getIsFlagged()) {
                     sweptCount++;
+                    cells[i][j].setBackgroundResource(mHelper.getMineResource(false, true));
+                }
             }
         }
 
@@ -236,7 +443,7 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
             for(int i = 0; i < mGameFragment.getSize(); i++) {
                 for(int j = 0; j < mGameFragment.getSize(); j++) {
                     if(mGameFragment.cells[i][j].isMine)
-                        mGameFragment.cells[i][j].setBackgroundResource(mHelper.getMineResource(false));
+                        mGameFragment.cells[i][j].setBackgroundResource(mHelper.getMineResource(false, mGameFragment.cells[i][j].getIsFlagged()));
 
                 }
             }
@@ -273,7 +480,7 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
         trumpBundle.putInt("TOUPEES", sweptCount);
         trumpBundle.putDouble("TIME", SystemClock.elapsedRealtime() - cr.getBase());
 
-        Fragment gameEndOverlayFrag = new GameEndOverlay();
+        gameEndOverlayFrag = new GameEndOverlay();
         gameEndOverlayFrag.setArguments(trumpBundle);
 
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -412,7 +619,7 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.volume_control_up) {
             volumeUp.setVisible(false);
@@ -448,7 +655,7 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
         }
 
         return true;
-    }
+    }*/
 
     @Override
     public void playTrumpClip(int id) {
@@ -468,8 +675,10 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
 
     @Override
     public void playNeighborsClip() {
-        neighborsMediaPlayer.seekTo(0);
-        neighborsMediaPlayer.start();
+        if(prefs.getBoolean("volume_preference", true)) {
+            neighborsMediaPlayer.seekTo(0);
+            neighborsMediaPlayer.start();
+        }
     }
 
     public void setLastClipId(int id) { lastClipId = id; }
@@ -584,20 +793,21 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
     @Override
     protected void onPause() {
         super.onPause();
-        StartActivity.themeMediaPlayer.pause();
+        if(StartActivity.themeMediaPlayer.isPlaying())
+            StartActivity.themeMediaPlayer.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("music_preference", true))
+
+        if(StartActivity.themeMediaPlayer != null && PreferenceManager.getDefaultSharedPreferences(this).getBoolean("music_preference", true))
             StartActivity.themeMediaPlayer.start();
     }
 
     @Override
     public void handleAchievementsLeaders(boolean win, int size, double t, final int toupees) {
-
         if(win) {
             final long time = (long) t;
 
@@ -613,12 +823,25 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                         @Override
                         public void onResult(Leaderboards.LoadPlayerScoreResult arg0) {
                             LeaderboardScore c = arg0.getScore();
-                            int old;
+                            final int old;
                             if (c != null)
                                 old = (int) c.getRawScore();
                             else
                                 old = 0;
-                            Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_trumps_toupeed), old + toupees);
+                            Games.Leaderboards.submitScoreImmediate(mGoogleApiClient, getResources().getString(R.string.leaderboard_trumps_toupeed), old + toupees).setResultCallback(new ResultCallback<Leaderboards.SubmitScoreResult>() {
+                                @Override
+                                public void onResult(@NonNull Leaderboards.SubmitScoreResult submitScoreResult) {
+                                    //Log.d("asdf", "Toupees: " + old + ", " + toupees);
+                                    GameEndOverlay.newHighs.add(new newHigh("Trumps Toupee'd", old + toupees));
+
+                                    if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                        ((GameEndOverlay) gameEndOverlayFrag).setHighs();
+                                }
+                            });
+
+
+                            //Log.d("asdf", "toupees");
+
                         }
                     });
 
@@ -641,12 +864,37 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                             @Override
                             public void onResult(Leaderboards.LoadPlayerScoreResult arg0) {
                                 LeaderboardScore c = arg0.getScore();
-                                int wins;
+                                final int wins;
                                 if (c != null)
                                     wins = (int) c.getRawScore();
                                 else
                                     wins = 0;
-                                Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_apprentice_wins), wins + 1);
+                                Games.Leaderboards.submitScoreImmediate(mGoogleApiClient, getResources().getString(R.string.leaderboard_apprentice_wins), wins + 1).setResultCallback(new ResultCallback<Leaderboards.SubmitScoreResult>() {
+                                    @Override
+                                    public void onResult(@NonNull Leaderboards.SubmitScoreResult submitScoreResult) {
+                                        GameEndOverlay.newHighs.add(new newHigh("Apprentice Wins", wins + 1));
+
+                                       // Log.d("asdf", "Wins: " + wins);
+
+                                        if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                            ((GameEndOverlay) gameEndOverlayFrag).setHighs();
+                                    }
+                                });
+
+
+                                Status status = arg0.getStatus();
+                                int statusCode = status.getStatusCode();
+
+                                /*if (statusCode == GamesStatusCodes.STATUS_NETWORK_ERROR_NO_DATA) {
+                                    GameEndOverlay.highsErrorCount++;
+                                    Log.d("code" ,"A network error occurred while attempting to retrieve fresh data, and no data was available locally.");
+                                } else if (statusCode == GamesStatusCodes.STATUS_NETWORK_ERROR_STALE_DATA) {
+                                    Log.d("code" ,"A network error occurred while attempting to retrieve fresh data, but some locally cached data was available. The data returned may be stale and/or incomplete.");
+                                } else {
+                                    Log.d("code" ,status.getStatusMessage());
+                                }*/
+
+                                //Log.d("asdf", "wins");
                             }
                         });
 
@@ -663,14 +911,24 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                                 long old_time;
                                 if(c != null) {
                                     old_time = c.getRawScore();
+                                    Log.d("time", old_time + "");
                                     if(time < old_time) {
+                                        //Log.d("asdf", "time:" + time + ", old time:" + old_time);
                                         Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_apprentice), time);
+                                        GameEndOverlay.newHighs.add(new newHigh("Fastest Apprentice", time));
                                     }
-                                        Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_apprentice), time);
                                 }
                                 else {
+                                    //Log.d("asdf", "time null");
                                     Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_apprentice), time);
+                                    GameEndOverlay.newHighs.add(new newHigh("Fastest Apprentice", time));
                                 }
+
+                                //Log.d("asdf", "speed");
+
+                                if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                    ((GameEndOverlay) gameEndOverlayFrag).setHighs();
+
                             }
                         });
             } else if (size == getResources().getInteger(R.integer.size_ceo)) {
@@ -696,6 +954,12 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                                 else
                                     wins = 0;
                                 Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_ceo_wins), wins + 1);
+
+                                GameEndOverlay.newHighs.add(new newHigh("CEO Wins", wins + 1));
+
+
+                                if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                    ((GameEndOverlay) gameEndOverlayFrag).setHighs();
                             }
                         });
 
@@ -714,11 +978,16 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                                     old_time = c.getRawScore();
                                     if(time < old_time) {
                                         Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_ceo), time);
+                                        GameEndOverlay.newHighs.add(new newHigh("Fastest CEO", time));
                                     }
                                 }
                                 else {
                                     Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_ceo), time);
+                                    GameEndOverlay.newHighs.add(new newHigh("Fastest CEO", time));
                                 }
+
+                                if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                    ((GameEndOverlay) gameEndOverlayFrag).setHighs();
                             }
                         });
             } else if (size == getResources().getInteger(R.integer.size_president)) {
@@ -726,7 +995,7 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                 Games.Achievements.increment(mGoogleApiClient, getResources().getString(R.string.achievement_trumped_the_trump_v_2), 1);
                 Games.Achievements.increment(mGoogleApiClient, getResources().getString(R.string.achievement_trumped_the_trump_v_3), 1);
 
-                if(time <= 90000)
+                if(time <= 120000)
                     Games.Achievements.unlock(mGoogleApiClient, getResources().getString(R.string.achievement_end_all_trump_all));
 
 
@@ -745,6 +1014,10 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                                 else
                                     wins = 0;
                                 Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_mr__president_wins), wins + 1);
+                                GameEndOverlay.newHighs.add(new newHigh("Mr. President Wins", wins + 1));
+
+                                if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                    ((GameEndOverlay) gameEndOverlayFrag).setHighs();
                             }
                         });
 
@@ -763,13 +1036,62 @@ public class GameActivity extends AppCompatActivity implements GameStartFragment
                                     old_time = c.getRawScore();
                                     if (time < old_time) {
                                         Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_president), time);
+                                        GameEndOverlay.newHighs.add(new newHigh("Fastest President", time));
                                     }
                                 } else {
                                     Games.Leaderboards.submitScore(mGoogleApiClient, getResources().getString(R.string.leaderboard_fastest_president), time);
+                                    GameEndOverlay.newHighs.add(new newHigh("Fastest President", time));
                                 }
+
+                                if(++GameEndOverlay.leaderboardsCompleted == 3)
+                                    ((GameEndOverlay) gameEndOverlayFrag).setHighs();
                             }
                         });
             }
         }
+    }
+
+    public void vibrate() {
+        Vibrator v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(25);
+    }
+
+    public void handleIntersitial() {
+        if(!prefs.getBoolean("no_ads", false)) {
+            if (mInterstitialAd.isLoaded()) {
+                Random random = new Random();
+                int r = random.nextInt(5);
+
+                if(r == 0)
+                    mInterstitialAd.show();
+            }
+            else
+                mInterstitialAd.loadAd(adRequestI);
+        }
+    }
+
+    public void showLayout() {
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(new ViewTarget(GameToolbarFragment.tv_minecount))
+                .withMaterialShowcase()
+                .setOnClickListener(showcaseOnClick).setStyle(R.style.showcase)
+                .build();
+        showcaseView.setButtonText("Next");
+
+        showcaseView.setContentTitle("Toupee'd Trumps");
+        showcaseView.setContentText("This counter shows how many toupee's have been placed on the board out of how many trumps there are.");
+
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        // This aligns button to the bottom left side of screen
+        lps.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+        showcaseView.setButtonPosition(lps);
+    }
+
+    @Override
+    public void showTutorial() {
+        TutorialDialogFragment tutorialDialogFragment = new TutorialDialogFragment();
+        tutorialDialogFragment.show(getSupportFragmentManager(), "Tutorial");
     }
 }
