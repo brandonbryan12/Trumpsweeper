@@ -3,7 +3,7 @@
 Trumpsweeper is a game of wits and strategy. The Donald Trumps are busy getting dressed. Your job is to toupee all of them and uncover all of the non-Trump tiles. Make sure not to open Trump tiles!
 
 
-###Features
+### Features
 * Leaderboards for multiple metrics
 
 * Google Play Games Achievements
@@ -13,7 +13,7 @@ Trumpsweeper is a game of wits and strategy. The Donald Trumps are busy getting 
 * In-app Purchases
 
 
-###Difficulties
+### Difficulties
 * Apprentice 7x7 with 7 Trumps
 
 * CEO 10x10 with 18 Trumps
