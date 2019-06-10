@@ -4,20 +4,20 @@ Trumpsweeper is a game of wits and strategy. The Donald Trumps are busy getting 
 
 
 ### Features
-* Leaderboards for multiple metrics
+  - Leaderboards for multiple metrics
 
-* Google Play Games Achievements
+  - Google Play Games Achievements
 
-* Interactive Tutorial
+  - Interactive Tutorial
 
-* In-app Purchases
+  - In-app Purchases
 
 
 ### Difficulties
-* Apprentice 7x7 with 7 Trumps
+  - Apprentice 7x7 with 7 Trumps
 
-* CEO 10x10 with 18 Trumps
+  - CEO 10x10 with 18 Trumps
 
-* Mr. President 15x15 with 55 Trumps
+  - Mr. President 15x15 with 55 Trumps
 
 Store Link: https://play.google.com/store/apps/details?id=com.brandonferrell.trumpsweeper&hl=en
